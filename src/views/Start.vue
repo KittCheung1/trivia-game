@@ -83,12 +83,14 @@ const onLoginClick = async () => {
       </fieldset>
 
       <div>
-        <button type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button>
+<button type="submit" class="bg-indigo-500 rounded">
+  Register
+</button>        <!-- <button type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button>
         <button
           @click="onLoginClick"
           type="button"
           class="bg-yellow-500 text-white p-3 rounded"
-        >Start Trivia Game</button>
+        >Start Trivia Game</button> -->
       </div>
     </form>
   </main>
