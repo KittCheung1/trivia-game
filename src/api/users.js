@@ -13,11 +13,14 @@ export let currentUser = null;
 
 export async function apiUserLogin(username) {
     const user = await getUser(username)
-    if (!user) {
-        return false;
+    if (user) {
+        currentUser = user
+    } else {
+        const result = await apiUserRegister(username);
+        currentUser = result[1];
     }
-    currentUser = user
-    return true;
+
+    return currentUser;
 }
 
 
@@ -36,15 +39,15 @@ export async function apiUserRegister(username) {
             body: JSON.stringify({
 
                 username,
-                score
+                score: 0
             })
         }
 
         const response = await fetch(`${BASE_USER_URL}`, config);
-        const { data } = await response.json();
-        console.log(data)
+        const data = await response.json();
         return [null, data];
     } catch (error) {
+        console.log(error.message)
         return [error.message, null];
     }
 }
