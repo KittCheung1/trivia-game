@@ -5,12 +5,17 @@ import { apiUserLogin } from "../api/users";
 import router from "../router";
 import { onMounted, reactive } from "vue";
 import { currentUser } from "../api/users"
+import { useStore } from "vuex";
 
+const store = useStore()
 
+const emit = defineEmits(["onAuthSuccess"])
+const onSuccess = currentUser =>{
+  store.commit("setUser", currentUser) 
+  emit("onAuthSuccess")
+}
 
 const username = ref("");
-
-
 const categories = reactive([]);
 
 async function loadQuizCategories() {
@@ -28,7 +33,9 @@ onMounted(() => {
 const onLoginClick = async () => {
   const loginSuccess = await apiUserLogin(username.value);
   if (loginSuccess) {
-    router.push("trivia");
+    console.log
+    onSuccess(currentUser);
+    // router.push("trivia");
   } else { console.log("User does not exist!") }
 
 }
