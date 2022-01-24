@@ -4,7 +4,7 @@ import StartForm from '../components/StartForm.vue';
 
 
 const router = useRouter()
-const handleAuthSuccess= ()=> {
+const handleAuthSuccess = () => {
   router.push("trivia")
   console.log("user is available")
 }
@@ -15,10 +15,9 @@ const handleAuthSuccess= ()=> {
   <main class="container mx-auto px-4">
     <h1 class="mb-3 text-2xl">Login to get started</h1>
 
-<StartForm @onAuthSuccess="handleAuthSuccess"/>
+    <StartForm @onAuthSuccess="handleAuthSuccess" />
   </main>
 </template>
 
 <style>
-
 </style>

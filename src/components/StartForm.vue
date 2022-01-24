@@ -7,10 +7,15 @@ import { onMounted, reactive } from "vue";
 import { currentUser } from "../api/users"
 import { useStore } from "vuex";
 
+
+const selectedNumOfQuest=ref("10")
+const selectedDiff=ref("")
+const selectedCat=ref("")
+const selectedType=ref("")
+
+const selectedOptions = reactive([]);
+
 const store = useStore()
-
-const selectedOptions = ""
-
 const emit = defineEmits(["onAuthSuccess"])
 const onSuccess = currentUser => {
   store.commit("setUser", currentUser)
@@ -32,26 +37,31 @@ onMounted(() => {
   loadQuizCategories();
 });
 
-// const onRegisterClick = async () => {
-//   const [error, user] = await apiUserRegister(username.value);
-//   if (error !== null) {
-//     displayError.value = error;
-//   } else console.log("You Passed!");
-// }
-
 const onLoginClick = async () => {
   const loginSuccess = await apiUserLogin(username.value);
   if (loginSuccess) {
-    console.log
     onSuccess(currentUser);
   } else { console.log("User does not exist!") }
 
 }
+
+const onSubmit = () => {
+onLoginClick()
+store.commit("setNumOfQuest", selectedNumOfQuest.value)
+store.commit("setDiff", selectedDiff.value)
+store.commit("setCat", selectedCat.value)
+store.commit("setType", selectedType.value)
+// selectedOptions.push(selectedNumOfQuest.value)
+// selectedOptions.push(selectedDiff.value)
+// selectedOptions.push(selectedCat.value)
+// selectedOptions.push(selectedType.value)
+console.log(selectedOptions)
+}
 </script>
 
 <template>
-  <form>
-    <fieldset class="mb-3">
+  <form @submit.prevent="onSubmit">
+    <fieldset class="mb-3 border-2 border-solid border-slate-500" >
       <legend>Game Settings</legend>
       <div>
         <label for="username" aria-label="Username" class="block">Username</label>
@@ -65,12 +75,12 @@ const onLoginClick = async () => {
       </div>
       <div>
         <label>Number of Questions:</label>
-        <input type="number" placeholder="10"/>
+        <input v-model="selectedNumOfQuest" type="number" placeholder="10"/>
       </div>
       <div>
         <label for="selectDiff" style="text-align: left;">Difficulty</label>
-        <select id="select">
-          <option selected>Any Difficulty></option>
+        <select v-model="selectedDiff" id="select">
+          <option value="">Any Difficulty</option>
           <option>Easy</option>
           <option>Medium</option>
           <option>Hard</option>
@@ -78,15 +88,15 @@ const onLoginClick = async () => {
       </div>
       <div>
         <label>Category</label>
-        <select id="selectCat">
-          <option selected>Any Categories</option>
+        <select v-model="selectedCat" id="selectCat" >
+          <option value="">Any Categories</option>
           <option v-for="category in categories" :name="category.id">{{ category.name }}</option>
         </select>
       </div>
       <div>
         <label>Type</label>
-        <select id="selectType">
-          <option selected>Any Type</option>
+        <select v-model="selectedType" id="selectType">
+          <option value="">Any Type</option>
           <option>Multiple Choice</option>
           <option>True / False</option>
         </select>
@@ -94,10 +104,8 @@ const onLoginClick = async () => {
     </fieldset>
 
     <div>
-      <!-- <button @click ="onRegisterClick" type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button> -->
       <button
-        @click="onLoginClick"
-        type="button"
+        type="submit"
         class="bg-yellow-500 text-white p-3 rounded"
       >Start Trivia Game</button>
     </div>
