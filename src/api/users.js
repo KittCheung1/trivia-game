@@ -27,7 +27,7 @@ export async function apiUserLogin(username) {
 
 
 //POST------------------------------------------------------------------------------------------
-export async function apiUserRegister(username) {
+async function apiUserRegister(username) {
     try {
         const config = {
 

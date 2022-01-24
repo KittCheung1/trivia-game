@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { CATEGORIES_URL } from "../api/index";
-import { apiUserLogin, apiUserRegister } from "../api/users";
+import { apiUserLogin } from "../api/users";
 import router from "../router";
 import { onMounted, reactive } from "vue";
 import { currentUser } from "../api/users"
@@ -32,12 +32,12 @@ onMounted(() => {
   loadQuizCategories();
 });
 
-const onRegisterClick = async () => {
-  const [error, user] = await apiUserRegister(username.value);
-  if (error !== null) {
-    displayError.value = error;
-  } else console.log("You Passed!");
-}
+// const onRegisterClick = async () => {
+//   const [error, user] = await apiUserRegister(username.value);
+//   if (error !== null) {
+//     displayError.value = error;
+//   } else console.log("You Passed!");
+// }
 
 const onLoginClick = async () => {
   const loginSuccess = await apiUserLogin(username.value);
@@ -94,7 +94,7 @@ const onLoginClick = async () => {
     </fieldset>
 
     <div>
-      <button @click ="onRegisterClick" type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button>
+      <!-- <button @click ="onRegisterClick" type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button> -->
       <button
         @click="onLoginClick"
         type="button"
