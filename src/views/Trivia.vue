@@ -1,8 +1,13 @@
 <script setup>
-import { currentUser } from "../api/users"
-import { CATEGORIES_URL } from "../api/index"
+import { currentUser } from "../api/users";
+import { CATEGORIES_URL } from "../api/index";
 import { onMounted, reactive } from "vue";
+import {computed} from "vue";
+import { useStore } from 'vuex';
 
+
+const store = useStore();
+const user = computed(() => store.state.user);
 const categories = reactive([]);
 
 async function loadQuizCategories() {
@@ -27,11 +32,11 @@ onMounted(() => {
   <main class="container mx-auto px-4">
     <h1 class="mb-3 text-2xl">Trivia Game</h1>
     <h2>Display the questions</h2>
-    <h1>{{ currentUser }}</h1>
-    <form v-show="true">
+    <h1>{{user.username}}</h1>
+    <form >
      
      <button type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button>
-      <button v-show="true">press me</button>-->
+      <button >press me</button>-->
     </form>
   </main>
 </template>
