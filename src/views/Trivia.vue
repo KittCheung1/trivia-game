@@ -35,7 +35,7 @@ onMounted(() => {
     <h1>{{user.username}}</h1>
     <form >
      
-     <button type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button>
+     <!-- <button type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button> -->
       <button >press me</button>-->
     </form>
   </main>

@@ -42,6 +42,7 @@ export async function apiUserRegister(username) {
 
         const response = await fetch(`${BASE_USER_URL}`, config);
         const { data } = await response.json();
+        console.log(data)
         return [null, data];
     } catch (error) {
         return [error.message, null];
