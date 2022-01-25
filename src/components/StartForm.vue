@@ -10,11 +10,11 @@ import { TRIVIA_BASE_URL } from "../api/index";
 
 
 
-// const selectedNumOfQuest = ref("10")
-// const selectedDiff = ref("")
-// const selectedCat = ref("")
-// const selectedType = ref("")
-// const selectedCatId = ref("")
+const selectedNumOfQuest = ref("10")
+const selectedDiff = ref("")
+const selectedCat = ref("")
+const selectedType = ref("")
+const selectedCatId = ref("")
 
 
 const selectedOptions = reactive([]);
@@ -60,7 +60,7 @@ const onSubmit = () => {
   store.commit("setType", selectedType.value)
   store.commit("setId", selectCat.value); */
 
-  store.commit("setUrl", { TRIVIA_BASE_URL, selectedNumOfQuest, selectedCatId, selectDifficulty })
+  store.commit("setUrl",  TRIVIA_BASE_URL, selectedNumOfQuest.value, selectedCatId.value, selectDifficulty.value)
   // let userChoices = store.getters.choices;
   console.log(selectedNumOfQuest.value, selectedDiff.value);
 
