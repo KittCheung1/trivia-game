@@ -54,11 +54,7 @@ const onLoginClick = async () => {
 
 const onSubmit = () => {
   onLoginClick()
-  /* store.commit("setNumOfQuest", selectedNumOfQuest.value)
-  store.commit("setDiff", selectedDiff.value)
-  store.commit("setCat", selectedCat.value)
-  store.commit("setType", selectedType.value)
-  store.commit("setId", selectCat.value); */
+
  const settingsObj = {
    theUrl: TRIVIA_BASE_URL,
    number: selectedNumOfQuest.value, 
@@ -68,7 +64,7 @@ const onSubmit = () => {
   store.commit("setUrl", settingsObj)
   // let userChoices = store.getters.choices;
   console.log(selectedNumOfQuest.value, selectedDiff.value);
-
+  console.log(store.getters.url);
 
   //console.log(selectedOptions)
 }

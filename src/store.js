@@ -26,7 +26,7 @@ export default createStore({
     mutations: {
         // you could destructure here too
         setUrl: (state, settings ) => {
-            state.url = `${settings.theUrl}amount=${settings.number}&category=${settings.categoryId}&difficulty=${settings.difficulty}`;
+            state.url = `${settings.theUrl}amount=${settings.number}&category=${settings.categoryId}&difficulty=${settings.difficulty.toLowerCase()}`;
         },
         setUser: (state, user) => {
             state.user = user
