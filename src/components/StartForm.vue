@@ -6,12 +6,16 @@ import router from "../router";
 import { onMounted, reactive } from "vue";
 import { currentUser } from "../api/users"
 import { useStore } from "vuex";
+import { TRIVIA_BASE_URL } from "../api/index";
 
 
-const selectedNumOfQuest=ref("10")
-const selectedDiff=ref("")
-const selectedCat=ref("")
-const selectedType=ref("")
+
+const selectedNumOfQuest = ref("10")
+const selectedDiff = ref("")
+const selectedCat = ref("")
+const selectedType = ref("")
+const selectedCatId = ref("")
+
 
 const selectedOptions = reactive([]);
 
@@ -25,16 +29,19 @@ const onSuccess = currentUser => {
 const username = ref("");
 const categories = reactive([]);
 
+
 async function loadQuizCategories() {
   const response = await fetch(CATEGORIES_URL);
   const data = await response.json();
   data.trivia_categories.forEach(category => {
     categories.push(category);
+    return data;
   });;
 };
 
 onMounted(() => {
   loadQuizCategories();
+
 });
 
 const onLoginClick = async () => {
@@ -46,22 +53,26 @@ const onLoginClick = async () => {
 }
 
 const onSubmit = () => {
-onLoginClick()
-store.commit("setNumOfQuest", selectedNumOfQuest.value)
-store.commit("setDiff", selectedDiff.value)
-store.commit("setCat", selectedCat.value)
-store.commit("setType", selectedType.value)
-// selectedOptions.push(selectedNumOfQuest.value)
-// selectedOptions.push(selectedDiff.value)
-// selectedOptions.push(selectedCat.value)
-// selectedOptions.push(selectedType.value)
-console.log(selectedOptions)
+  onLoginClick()
+
+ const settingsObj = {
+   theUrl: TRIVIA_BASE_URL,
+   number: selectedNumOfQuest.value, 
+   categoryId: selectedCat.value, 
+   difficulty: selectedDiff.value
+ }
+  store.commit("setUrl", settingsObj)
+  // let userChoices = store.getters.choices;
+  console.log(selectedNumOfQuest.value, selectedDiff.value);
+  console.log(store.getters.url);
+
+  //console.log(selectedOptions)
 }
 </script>
 
 <template>
   <form @submit.prevent="onSubmit">
-    <fieldset class="mb-3 border-2 border-solid border-slate-500" >
+    <fieldset class="mb-3 border-2 border-solid border-slate-500">
       <legend>Game Settings</legend>
       <div>
         <label for="username" aria-label="Username" class="block">Username</label>
@@ -75,12 +86,12 @@ console.log(selectedOptions)
       </div>
       <div>
         <label>Number of Questions:</label>
-        <input v-model="selectedNumOfQuest" type="number" placeholder="10"/>
+        <input v-model.number="selectedNumOfQuest" type="number" placeholder="10" />
       </div>
       <div>
         <label for="selectDiff" style="text-align: left;">Difficulty</label>
-        <select v-model="selectedDiff" id="select">
-          <option value="">Any Difficulty</option>
+        <select v-model="selectedDiff" id="selectDifficulty">
+          <option value>Any Difficulty</option>
           <option>Easy</option>
           <option>Medium</option>
           <option>Hard</option>
@@ -88,15 +99,18 @@ console.log(selectedOptions)
       </div>
       <div>
         <label>Category</label>
-        <select v-model="selectedCat" id="selectCat" >
-          <option value="">Any Categories</option>
-          <option v-for="category in categories" :name="category.id">{{ category.name }}</option>
+        <select v-model="selectedCat" id="selectCat">
+          <option value>Any Categories</option>
+          <option
+            v-for="category in categories"
+            :value="category.id"
+          >{{ category.name }} {{ category.id }}</option>
         </select>
       </div>
       <div>
         <label>Type</label>
         <select v-model="selectedType" id="selectType">
-          <option value="">Any Type</option>
+          <option value>Any Type</option>
           <option>Multiple Choice</option>
           <option>True / False</option>
         </select>
@@ -104,10 +118,7 @@ console.log(selectedOptions)
     </fieldset>
 
     <div>
-      <button
-        type="submit"
-        class="bg-yellow-500 text-white p-3 rounded"
-      >Start Trivia Game</button>
+      <button type="submit" class="bg-yellow-500 text-white p-3 rounded">Start Trivia Game</button>
     </div>
   </form>
 </template>

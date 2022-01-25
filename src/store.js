@@ -6,14 +6,28 @@ export default createStore({
     //state shared through out the application
     state: {
         user: null,
-        selectedNumOfQuest: 0,
-        selectedDiff: null,
-        selectedCat: null,
-        selectedType: null,
-
+        url: null
+            // selectedNumOfQuest: 0,
+            // selectedDiff: null,
+            // selectedCat: null,
+            // selectedType: null,
+            // selectedCatId: 0
     },
+    getters: {
+        choices: state => {
+            return [state.selectedCat, state.selectedDiff, state.selectedType, state.selectedNumOfQuest, state.selectedCatId];
+        },
+        url: state => {
+            return state.url;
+        }
+    },
+
     // changing the state
     mutations: {
+        // you could destructure here too
+        setUrl: (state, settings ) => {
+            state.url = `${settings.theUrl}amount=${settings.number}&category=${settings.categoryId}&difficulty=${settings.difficulty.toLowerCase()}`;
+        },
         setUser: (state, user) => {
             state.user = user
         },
@@ -28,6 +42,9 @@ export default createStore({
         },
         setType: (state, type) => {
             state.selectedType = type
+        },
+        setId: (state, id) => {
+            state.selectedCatId = id;
         }
 
     },
