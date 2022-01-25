@@ -4,6 +4,7 @@ import StartForm from '../components/StartForm.vue';
 
 
 
+
 const router = useRouter()
 const handleAuthSuccess = () => {
   router.push("trivia")

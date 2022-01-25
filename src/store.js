@@ -55,6 +55,7 @@ export default createStore({
         async loadQuestions(state) {
             const response = await fetch(state.getters.url);
             const data = await response.json();
+
             return data.results;
             // data.trivia_categories.forEach(category => {
             //   categories.push(category);

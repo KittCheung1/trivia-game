@@ -10,7 +10,13 @@ console.log(result);
 </script>
 
 <template>
-<p>{{load}}</p>
+<div> 
+    
+<p>{{result[0]}}</p>
+<p>hejeje</p>
+
+</div>
+
 </template>
 
 <style>
