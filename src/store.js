@@ -25,7 +25,7 @@ export default createStore({
     // changing the state
     mutations: {
         // you could destructure here too
-        setUrl: (state, settings ) => {
+        setUrl: (state, settings) => {
             state.url = `${settings.theUrl}amount=${settings.number}&category=${settings.categoryId}&difficulty=${settings.difficulty.toLowerCase()}`;
         },
         setUser: (state, user) => {
@@ -52,7 +52,15 @@ export default createStore({
 
     //communication ex: HTTP requests
     actions: {
-
+        async loadQuestions(state) {
+            const response = await fetch(state.getters.url);
+            const data = await response.json();
+            return data.results;
+            // data.trivia_categories.forEach(category => {
+            //   categories.push(category);
+            //   return data;
+            // });;
+        }
 
     }
 })

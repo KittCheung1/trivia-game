@@ -6,6 +6,6 @@ import './index.css'
 
 
 createApp(App)
-    .use(router)
     .use(store)
+    .use(router)
     .mount('#app')

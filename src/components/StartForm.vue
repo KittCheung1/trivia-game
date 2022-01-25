@@ -62,11 +62,9 @@ const onSubmit = () => {
    difficulty: selectedDiff.value
  }
   store.commit("setUrl", settingsObj)
-  // let userChoices = store.getters.choices;
-  console.log(selectedNumOfQuest.value, selectedDiff.value);
-  console.log(store.getters.url);
+  // console.log(selectedNumOfQuest.value, selectedDiff.value);
+  // console.log(store.getters.url);
 
-  //console.log(selectedOptions)
 }
 </script>
 
