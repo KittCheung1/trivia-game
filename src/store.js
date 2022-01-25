@@ -6,20 +6,27 @@ export default createStore({
     //state shared through out the application
     state: {
         user: null,
-        selectedNumOfQuest: 0,
-        selectedDiff: null,
-        selectedCat: null,
-        selectedType: null,
-        selectedCatId: 0
+        url: null
+            // selectedNumOfQuest: 0,
+            // selectedDiff: null,
+            // selectedCat: null,
+            // selectedType: null,
+            // selectedCatId: 0
     },
     getters: {
         choices: state => {
             return [state.selectedCat, state.selectedDiff, state.selectedType, state.selectedNumOfQuest, state.selectedCatId];
         },
+        url: state => {
+            return state.url;
+        }
     },
 
     // changing the state
     mutations: {
+        setUrl: (state, { theUrl, number, categoryId, difficulty }) => {
+            state.url = `${theUrl}amount=${number}&category=${categoryId}&difficulty=${difficulty}`;
+        },
         setUser: (state, user) => {
             state.user = user
         },
@@ -36,7 +43,7 @@ export default createStore({
             state.selectedType = type
         },
         setId: (state, id) => {
-             state.selectedCatId = id;
+            state.selectedCatId = id;
         }
 
     },
