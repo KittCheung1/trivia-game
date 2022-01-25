@@ -59,8 +59,13 @@ const onSubmit = () => {
   store.commit("setCat", selectedCat.value)
   store.commit("setType", selectedType.value)
   store.commit("setId", selectCat.value); */
-
-  store.commit("setUrl",  TRIVIA_BASE_URL, selectedNumOfQuest.value, selectedCatId.value, selectDifficulty.value)
+ const settingsObj = {
+   theUrl: TRIVIA_BASE_URL,
+   number: selectedNumOfQuest.value, 
+   categoryId: selectedCat.value, 
+   difficulty: selectedDiff.value
+ }
+  store.commit("setUrl", settingsObj)
   // let userChoices = store.getters.choices;
   console.log(selectedNumOfQuest.value, selectedDiff.value);
 
