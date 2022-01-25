@@ -18,9 +18,12 @@ async function loadQuizCategories() {
   });;
 };
 
+const choices = store.getters.choices;
+
 onMounted(() => {
   loadQuizCategories();
 });
+
 
 
 
@@ -33,6 +36,7 @@ onMounted(() => {
     <h1 class="mb-3 text-2xl">Trivia Game</h1>
     <h2>Display the questions</h2>
     <h1>{{user.username}}</h1>
+    <h4 v-for:="choice in choices">{{ choice }}</h4>
     <form >
      
      <!-- <button type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button>
