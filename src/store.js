@@ -10,8 +10,14 @@ export default createStore({
         selectedDiff: null,
         selectedCat: null,
         selectedType: null,
-
+        selectedCatId: 0
     },
+    getters: {
+        choices: state => {
+            return [state.selectedCat, state.selectedDiff, state.selectedType, state.selectedNumOfQuest, state.selectedCatId];
+        },
+    },
+
     // changing the state
     mutations: {
         setUser: (state, user) => {
@@ -28,6 +34,9 @@ export default createStore({
         },
         setType: (state, type) => {
             state.selectedType = type
+        },
+        setId: (state, id) => {
+             state.selectedCatId = id;
         }
 
     },
