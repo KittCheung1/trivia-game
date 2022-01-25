@@ -8,10 +8,13 @@ import { currentUser } from "../api/users"
 import { useStore } from "vuex";
 
 
+
 const selectedNumOfQuest=ref("10")
 const selectedDiff=ref("")
 const selectedCat=ref("")
 const selectedType=ref("")
+const selectedCatId=ref("")
+
 
 const selectedOptions = reactive([]);
 
@@ -25,16 +28,20 @@ const onSuccess = currentUser => {
 const username = ref("");
 const categories = reactive([]);
 
+
+
 async function loadQuizCategories() {
   const response = await fetch(CATEGORIES_URL);
   const data = await response.json();
   data.trivia_categories.forEach(category => {
     categories.push(category);
+    return data;
   });;
 };
 
 onMounted(() => {
   loadQuizCategories();
+
 });
 
 const onLoginClick = async () => {
@@ -51,11 +58,12 @@ store.commit("setNumOfQuest", selectedNumOfQuest.value)
 store.commit("setDiff", selectedDiff.value)
 store.commit("setCat", selectedCat.value)
 store.commit("setType", selectedType.value)
-// selectedOptions.push(selectedNumOfQuest.value)
-// selectedOptions.push(selectedDiff.value)
-// selectedOptions.push(selectedCat.value)
-// selectedOptions.push(selectedType.value)
-console.log(selectedOptions)
+store.commit("setId", selectCat.value);
+let userChoices = store.getters.choices;
+console.log(userChoices);
+
+
+//console.log(selectedOptions)
 }
 </script>
 
@@ -90,7 +98,7 @@ console.log(selectedOptions)
         <label>Category</label>
         <select v-model="selectedCat" id="selectCat" >
           <option value="">Any Categories</option>
-          <option v-for="category in categories" :name="category.id">{{ category.name }}</option>
+          <option v-for="category in categories" :value="category.id">{{ category.name }} {{ category.id}}</option>
         </select>
       </div>
       <div>
