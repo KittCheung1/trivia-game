@@ -6,12 +6,9 @@ export default createStore({
     //state shared through out the application
     state: {
         user: null,
-        url: null
-            // selectedNumOfQuest: 0,
-            // selectedDiff: null,
-            // selectedCat: null,
-            // selectedType: null,
-            // selectedCatId: 0
+        url: null,
+        listOfQuestions: [],
+
     },
     getters: {
         choices: state => {
@@ -31,36 +28,23 @@ export default createStore({
         setUser: (state, user) => {
             state.user = user
         },
-        setNumOfQuest: (state, number) => {
-            state.selectedNumOfQuest = number
+        getQustions: (state, questions) => {
+            state.listOfQuestions = questions
         },
-        setDiff: (state, difficulty) => {
-            state.selectedDiff = difficulty
-        },
-        setCat: (state, category) => {
-            state.selectedCat = category
-        },
-        setType: (state, type) => {
-            state.selectedType = type
-        },
-        setId: (state, id) => {
-            state.selectedCatId = id;
-        }
-
     },
 
 
     //communication ex: HTTP requests
     actions: {
-        async loadQuestions(state) {
+        async loadQuestions({ commit }) {
             const response = await fetch(state.getters.url);
             const data = await response.json();
-
-            return data.results;
-            // data.trivia_categories.forEach(category => {
-            //   categories.push(category);
-            //   return data;
-            // });;
+            commit("getQuestions ", data.results)
+                // return data.results;
+                // data.trivia_categories.forEach(category => {
+                //   categories.push(category);
+                //   return data;
+                // });;
         }
 
     }

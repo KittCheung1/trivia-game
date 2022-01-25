@@ -27,10 +27,10 @@ onMounted(() => {
 });
 
 
-let test = store.dispatch("loadQuestions");
-console.log(test);
-let result = test.map(a => a.question);
-console.log(result);
+// let test = store.dispatch("loadQuestions");
+// console.log(test);
+// let result = test.map(a => a.question);
+// console.log(result);
 
 
 

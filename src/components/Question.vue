@@ -1,18 +1,23 @@
 <script setup>
-import store from '../store';
+import { useStore } from 'vuex';
 
-
-let test = await store.dispatch("loadQuestions");
-console.log(test);
-let result = test.map(a => a.question);
+const store = useStore()
+const questions = store.getters.questions;
+let result = questions.map(a => a.question);
 console.log(result);
+
+
+// let test = await store.dispatch("loadQuestions");
+// console.log(test);
+// let result = test.map(a => a.question);
+// console.log(result);
 
 </script>
 
 <template>
 <div> 
     
-<p>{{result[0]}}</p>
+<p>{{questions}}</p>
 <p>hejeje</p>
 
 </div>
