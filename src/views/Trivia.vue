@@ -42,7 +42,7 @@ onMounted(() => {
     <h2>Display the questions</h2>
     <h1>{{ user.username }}</h1>
     <h4 v-for:="choice in choices">{{ choice }}</h4>
-
+<Question/>
     <form>
       <!-- <button type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button>
       <button >press me</button>-->
