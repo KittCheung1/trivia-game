@@ -1,7 +1,22 @@
-# Vue 3 + Vite
-
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Name
+Trivia Game
 
 ## Recommended IDE Setup
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+
+VSCode + Volar
+
+
+
+## Way of Working
+We have been working together during the assignment on the same computer, thus the commits does not reflect the way we have been working.
+
+## Installations
+npm Install
+
+## Usage
+Locate the root folder of the project run in the terminal: npm run dev
+
+## Collaborators
+GitLab : @gabriel_andersson
+GitHub : gabrielandersson
