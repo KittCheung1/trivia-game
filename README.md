@@ -18,5 +18,5 @@ npm Install
 Locate the root folder of the project run in the terminal: npm run dev
 
 ## Collaborators
-GitLab : @gabriel_andersson
-GitHub : gabrielandersson
+GitLab : @gabriel_andersson, @KittCheung
+GitHub : gabrielandersson, KittCheung1
