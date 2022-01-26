@@ -1,8 +1,14 @@
 <script setup>
-import { currentUser } from "../api/users"
-import { CATEGORIES_URL } from "../api/index"
+import { currentUser } from "../api/users";
+import { CATEGORIES_URL } from "../api/index";
 import { onMounted, reactive } from "vue";
+import { computed } from "vue";
+import { useStore } from 'vuex';
+import Question from "../components/Question.vue"
 
+
+const store = useStore();
+const user = computed(() => store.state.user);
 const categories = reactive([]);
 
 async function loadQuizCategories() {
@@ -13,11 +19,18 @@ async function loadQuizCategories() {
   });;
 };
 
+const choices = store.getters.choices;
+
 onMounted(() => {
   loadQuizCategories();
+
 });
 
 
+// let test = store.dispatch("loadQuestions");
+// console.log(test);
+// let result = test.map(a => a.question);
+// console.log(result);
 
 
 
@@ -27,11 +40,12 @@ onMounted(() => {
   <main class="container mx-auto px-4">
     <h1 class="mb-3 text-2xl">Trivia Game</h1>
     <h2>Display the questions</h2>
-    <h1>{{ currentUser }}</h1>
-    <form v-show="true">
-     
-     <button type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button>
-      <button v-show="true">press me</button>-->
+    <h1>{{ user.username }}</h1>
+    <h4 v-for:="choice in choices">{{ choice }}</h4>
+
+    <form>
+      <!-- <button type="submit" class="bg-indigo-500 text-white p-3 rounded">Register</button>
+      <button >press me</button>-->
     </form>
   </main>
 </template>
@@ -39,7 +53,7 @@ onMounted(() => {
 
 
 
-<style>
+<style scoped>
 select {
   border-style: solid;
   border-color: black;
