@@ -1,5 +1,6 @@
 import { createStore } from "vuex"
 import { currentUser } from "./api/users"
+import { reactive } from "vue";
 
 export default createStore({
 
@@ -7,7 +8,8 @@ export default createStore({
     state: {
         user: null,
         url: null,
-        listOfQuestions: [],
+        listOfQuestions: reactive([]),
+
 
     },
     getters: {
@@ -16,7 +18,12 @@ export default createStore({
         },
         url: state => {
             return state.url;
-        }
+        },
+        getQuestions: state => {
+            return state.listOfQuestions
+        },
+
+
     },
 
     // changing the state
@@ -28,8 +35,10 @@ export default createStore({
         setUser: (state, user) => {
             state.user = user
         },
-        getQustions: (state, questions) => {
-            state.listOfQuestions = questions
+        loadQuestions: (state, questions) => {
+            questions.forEach((object) => {
+                state.listOfQuestions.push(object.question)
+            });
         },
     },
 
@@ -37,14 +46,11 @@ export default createStore({
     //communication ex: HTTP requests
     actions: {
         async loadQuestions({ commit }) {
-            const response = await fetch(state.getters.url);
-            const data = await response.json();
-            commit("getQuestions ", data.results)
-                // return data.results;
-                // data.trivia_categories.forEach(category => {
-                //   categories.push(category);
-                //   return data;
-                // });;
+            let response = await fetch(this.state.url)
+            let data = await response.json()
+            let dataArray = data.results
+            commit("loadQuestions", dataArray)
+                ;
         }
 
     }
