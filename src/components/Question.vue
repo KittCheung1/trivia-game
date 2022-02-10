@@ -4,17 +4,25 @@ import { CATEGORIES_URL } from "../api/index";
 import { onMounted, reactive } from "vue";
 import { computed } from "vue";
 import { useStore } from 'vuex';
+import QuestionDisplay from "./QuestionDisplay.vue";
 
 
 const store = useStore()
 
 const questionList = store.state.listOfQuestions
 const questions = store.getters.questions;
+const question = reactive(questionList[0])
+let questionCounter = 0; 
 
 onMounted(() => {
     store.dispatch("loadQuestions")
-
 });
+
+const incrementQuestionCounter=()=>{
+    questionCounter++;
+    question.value = questionList[questionCounter]
+
+}
 
 
 </script>
@@ -26,11 +34,10 @@ onMounted(() => {
         <div>
             <div class="questionDiv">
                 <ul>
-                    <li v-for="quest in questionList">{{ quest }}</li>
+                   <QuestionDisplay v-if="questionList.length!=0" :question="question.value" @answered="incrementQuestionCounter"/>
                 </ul>
-                <button type="button" class="btn" @click="">click me</button>
+               
             </div>
-            <p>{{ store.state.getQuestions }}help</p>
         </div>
     </div>
 </template>

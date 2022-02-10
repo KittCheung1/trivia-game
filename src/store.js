@@ -37,7 +37,7 @@ export default createStore({
         },
         loadQuestions: (state, questions) => {
             questions.forEach((object) => {
-                state.listOfQuestions.push(object.question)
+                state.listOfQuestions.push(object)
             });
         },
     },
