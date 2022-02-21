@@ -10,24 +10,24 @@ import { TRIVIA_BASE_URL } from "../api/index";
 
 
 
+const store = useStore()
 const selectedNumOfQuest = ref("10")
 const selectedDiff = ref("")
 const selectedCat = ref("")
-const selectedType = ref("")
-const selectedCatId = ref("")
+// const selectedType = ref("")
+const username = ref("");
+const categories = reactive([]);
+// const selectedCatId = ref("")
 
 
-const selectedOptions = reactive([]);
+// const selectedOptions = reactive([]);
 
-const store = useStore()
 const emit = defineEmits(["onAuthSuccess"])
 const onSuccess = currentUser => {
   store.commit("setUser", currentUser)
   emit("onAuthSuccess")
 }
 
-const username = ref("");
-const categories = reactive([]);
 
 
 async function loadQuizCategories() {
@@ -106,7 +106,7 @@ const onSubmit = () => {
       </div>
       <div>
         <label>Type</label>
-        <select v-model="selectedType" id="selectType">
+        <select>
           <option value>Any Type</option>
           <option>Multiple Choice</option>
           <option>True / False</option>

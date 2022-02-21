@@ -8,19 +8,19 @@ export default createStore({
     state: {
         user: null,
         url: null,
-        listOfQuestions: reactive([]),
+        questionObjects: reactive([]),
 
 
     },
     getters: {
-        choices: state => {
-            return [state.selectedCat, state.selectedDiff, state.selectedType, state.selectedNumOfQuest, state.selectedCatId];
-        },
-        url: state => {
-            return state.url;
-        },
-        getQuestions: state => {
-            return state.listOfQuestions
+        // choices: state => {
+        //     return [state.selectedCat, state.selectedDiff, state.selectedType, state.selectedNumOfQuest, state.selectedCatId];
+        // },
+        // getUrlState: state => {
+        //     return state.url;
+        // },
+        getQuestionsObjects: state => {
+            return state.questionObjects
         },
 
 
@@ -35,9 +35,9 @@ export default createStore({
         setUser: (state, user) => {
             state.user = user
         },
-        loadQuestions: (state, questions) => {
-            questions.forEach((object) => {
-                state.listOfQuestions.push(object)
+        fetchQuestionsObjects: (state, payload) => {
+            payload.forEach((object) => {
+                state.questionObjects.push(object)
             });
         },
     },
@@ -49,7 +49,8 @@ export default createStore({
             let response = await fetch(this.state.url)
             let data = await response.json()
             let dataArray = data.results
-            commit("loadQuestions", dataArray)
+            commit("fetchQuestionsObjects", dataArray)
+            console.log(dataArray)
                 ;
         }
 

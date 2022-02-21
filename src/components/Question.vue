@@ -5,22 +5,27 @@ import { onMounted, reactive } from "vue";
 import { computed } from "vue";
 import { useStore } from 'vuex';
 import QuestionDisplay from "./QuestionDisplay.vue";
+import {ref} from "@vue/reactivity";
 
 
 const store = useStore()
 
-const questionList = store.state.listOfQuestions
-const questions = store.getters.questions;
-const question = reactive(questionList[0])
+const questionObjects= store.state.questionObjects
+// const questions = store.getters.questions;
+const question = reactive([questionObjects][0])
 let questionCounter = 0; 
+let isLoaded = ref(false);
+
+console.log(question)
 
 onMounted(() => {
     store.dispatch("loadQuestions")
+    isLoaded.value= true;
 });
 
 const incrementQuestionCounter=()=>{
     questionCounter++;
-    question.value = questionList[questionCounter]
+    question.value = questionObjects[questionCounter]
 
 }
 
@@ -28,17 +33,21 @@ const incrementQuestionCounter=()=>{
 </script>
 
 <template>
-    <div>
-        <p>{{ questions }}</p>
+    <div v-if="isLoaded">
+        <p>{{ questionObjects[0].question }}</p>
+        <p>{{ questionObjects[0].correct_answer }}</p>
         <p>hejeje</p>
         <div>
             <div class="questionDiv">
                 <ul>
-                   <QuestionDisplay v-if="questionList.length!=0" :question="question.value" @answered="incrementQuestionCounter"/>
+                   <QuestionDisplay v-if="questionObjects.length!=0" :question="question.value" @answered="incrementQuestionCounter"/>
                 </ul>
                
             </div>
         </div>
+    </div>
+    <div v-else>
+LOADING
     </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 
-<h1>{{question.question}}</h1>
-<button @click="nextQuestion">Next question</button>
+<!-- <h1>{{question.question}}</h1> -->
+<!-- <button @click="nextQuestion">Next question</button> -->
 </template>
 
 <script setup>
