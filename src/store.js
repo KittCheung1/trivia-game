@@ -9,7 +9,7 @@ export default createStore({
         user: null,
         url: null,
         questionObjects: reactive([]),
-
+        index: 0,
 
     },
     getters: {
@@ -23,6 +23,9 @@ export default createStore({
             return state.questionObjects
         },
 
+        getNextIndex: state=> {
+            return state.index
+        }
 
     },
 
@@ -40,6 +43,7 @@ export default createStore({
                 state.questionObjects.push(object)
             });
         },
+        setIndex: (state)=>{state.index++},
     },
 
 
