@@ -6,25 +6,20 @@ import Question from "../components/Question.vue"
 
 
 
-
-
-
 <template>
   <main class="container">
-
-<Question/>
+    <Question />
   </main>
 </template>
 
 
 
 
-
-
-
 <style scoped>
-.container{
-  padding: 2%;
+.container {
+  display: flex;
+  justify-content: center;
+  margin: auto;
 }
 
 select {

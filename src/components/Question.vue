@@ -1,38 +1,22 @@
 <script setup>
-import { currentUser } from "../api/users";
-import { CATEGORIES_URL } from "../api/index";
 import { onMounted, reactive } from "vue";
 import { computed } from "vue";
 import { useStore } from 'vuex';
-import QuestionDisplay from "./QuestionDisplay.vue";
+import { useRouter } from 'vue-router';
 import { ref } from "@vue/reactivity";
 
 
 const store = useStore()
 
 const questionObjects = computed(() => store.state.questionObjects)
-// const questions = store.getters.questions;
-// const question = reactive(questionObjects.value)
 let questionIndex = computed(() => store.getters.getNextIndex);
 let isLoaded = ref(false);
-
-console.log(questionObjects[questionIndex])
 
 onMounted(() => {
     store.dispatch("loadQuestions").then(() => isLoaded.value = true)
 });
 
-// const incrementQuestionCounter=()=>{
-//     questionCounter++;
-//     question.value = questionObjects[questionCounter]
-
-// }
-
-const onClick = () => {
-    store.commit('setIndex')
-}
-
-const exitBtn = () => {
+const exitGameBtn = () => {
     store.commit('setUser', null);
     store.commit('setIndex', 0);
     //    store.commit('setCurrentScore', 0);
@@ -46,40 +30,41 @@ const createAnswerArray = (correct, incorrect) => {
     return answerArray;
 }
 
+const pickedAnswers=()=>{
+    
+    store.commit('setIndex')
+}
+
 
 </script>
 
 <template>
-<div class="mainContainer">
-    <h1 class="mb-3 text-2xl">Trivia Game</h1>
-    <div v-if="isLoaded">
-        <!-- <p>{{ questionObjects[questionIndex].question }}</p>
-        <p>{{ questionObjects[questionIndex].correct_answer }}</p>-->
-        <div>
-            <div class="questionDiv">
-                <p class="questionDisplay">{{ questionObjects[questionIndex].question }}</p>
-                <div class="btnDiv">
-                    <button
-                        type="button"
-                        class="btn"
-                        v-for="ans in createAnswerArray(questionObjects[questionIndex].incorrect_answers, questionObjects[questionIndex].correct_answer)"
-                        @click="onClick"
-                    >{{ans}}</button>
-                    <!-- <QuestionDisplay v-if="questionObjects.length!=0" :question="question.value" @answered="incrementQuestionCounter"/> -->
+    <div class="mainContainer">
+        <h1 class="mb-3 text-2xl">Trivia Game</h1>
+        <div v-if="isLoaded">
+            <div>
+                <div class="questionDiv">
+                    <p class="questionDisplay">{{ questionObjects[questionIndex].question }}</p>
+                    <div class="btnDiv">
+                        <button
+                            type="button"
+                            class="btn"
+                            v-for="ans in createAnswerArray(questionObjects[questionIndex].incorrect_answers, questionObjects[questionIndex].correct_answer)"
+                            @click="pickedAnswers"
+                        >{{ ans }}</button>
+                    </div>
                 </div>
             </div>
-            <button type="button" class="exitBtn" @click="exitBtn">Exit Game</button>
         </div>
-    </div>
-    <div v-else>LOADING</div>
+        <div v-else>LOADING</div>
+                <button class="exitBtn" @click="exitGameBtn">Exit Game</button>
     </div>
 </template>
 
 <style scoped>
-
-.mainContainer{
-width:100%;
-display: inline-block;
+.mainContainer {
+    width: 100%;
+    display: inline-block;
 }
 .questionDiv {
     margin-right: 50px;
@@ -89,17 +74,17 @@ display: inline-block;
     border-color: black;
 }
 
-.questionDisplay{
+.questionDisplay {
     padding: 2%;
     text-align: center;
 }
 
-.btnDiv{
+.btnDiv {
     text-align: center;
     margin: 2%;
 }
 
-.exitBtn{
+.exitBtn {
     width: 100px;
     height: 50px;
     border-style: solid;
