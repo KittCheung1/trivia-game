@@ -41,7 +41,8 @@ const exitBtn = () => {
 }
 
 const createAnswerArray = (correct, incorrect) => {
-    let answerArray = correct.concat(incorrect);
+    const answerArray = correct.concat(incorrect);
+    console.log(answerArray)
     return answerArray;
 }
 
@@ -52,17 +53,16 @@ const createAnswerArray = (correct, incorrect) => {
     <div v-if="isLoaded">
         <!-- <p>{{ questionObjects[questionIndex].question }}</p>
         <p>{{ questionObjects[questionIndex].correct_answer }}</p>-->
-        <p>hejeje</p>
         <div>
             <div class="questionDiv">
                 <p>{{ questionObjects[questionIndex].question }}</p>
-                <div>
+                <div class="btnDiv">
                     <button
                         type="button"
                         class="btn"
-                        v-for="ans in createAnswerArray(questionObjects[0].correct_answer, questionObjects[0].incorrect_answers)"
+                        v-for="ans in createAnswerArray(questionObjects[questionIndex].incorrect_answers, questionObjects[questionIndex].correct_answer)"
                         @click="onClick"
-                    >Click Me</button>
+                    >{{ans}}</button>
                     <!-- <QuestionDisplay v-if="questionObjects.length!=0" :question="question.value" @answered="incrementQuestionCounter"/> -->
                 </div>
             </div>
@@ -78,11 +78,30 @@ const createAnswerArray = (correct, incorrect) => {
     border-style: solid;
     border-color: black;
     text-align: left;
+    padding: 2%;
+}
+
+.btnDiv{
+    text-align: center;
+    margin: 2%;
+    
+}
+
+.exitBtn{
+    width: 100px;
+    height: 50px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 3px;
+    border-width: 2px;
+    background-color: rgb(0, 199, 27);
 }
 
 .btn {
-    width: 100px;
-    height: 80px;
+    width: 170px;
+    margin: 5px;
+    padding: 10px;
+    font-size: 15px;
     border-style: solid;
     border-color: black;
     border-radius: 3px;
