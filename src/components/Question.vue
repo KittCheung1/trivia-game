@@ -33,12 +33,10 @@ const createAnswerArray = (correct, incorrect) => {
 }
 const pickedAnswers = (answer) => {
 
-    // console.log(answer)
-    // console.log(questionObjects[0].incorrect_answers)
-    // if (answer === questionObjects[questionIndex].correct_answer) {
-    //     score += 10;
-    //     store.commit('setScore', score)
-    // }
+    if (answer === questionObjects[questionIndex].correct_answer) {
+        score += 10;
+        store.commit('setScore', score)
+    }
     clickedAnswerArray.push(answer)
     store.commit('setAnswerArray', clickedAnswerArray)
     store.commit('setIndex')
@@ -56,6 +54,8 @@ const pickedAnswers = (answer) => {
             <div>
                 <div class="questionDiv">
                     <p class="questionDisplay">{{ questionObjects[questionIndex].question }}</p>
+                    <p class="questionDisplay">{{ questionObjects[questionIndex].correct_answer}}</p>
+                    <p class="questionDisplay">{{ clickedAnswerArray}}</p>
                     <div class="btnDiv">
                         <button 
                             type="button"
