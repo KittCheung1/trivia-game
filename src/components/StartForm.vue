@@ -68,25 +68,26 @@ const onSubmit = () => {
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit">
-    <fieldset class="mb-3 border-2 border-solid border-slate-500">
+<div class="mainContainer">
+      <h1 class="mb-3 text-2xl">Login to get started</h1>
+  <form class="formContainer" @submit.prevent="onSubmit">
+    <fieldset class="fieldsetDiv">
       <legend>Game Settings</legend>
-      <div>
-        <label for="username" aria-label="Username" class="block">Username</label>
+      <div class="rows">
+        <label for="username" aria-label="Username" >Username: </label>
         <input
           type="text"
           id="username"
           placeholder="Username"
-          class="border border-slate-800"
           v-model="username"
         />
       </div>
-      <div>
-        <label>Number of Questions:</label>
+      <div class="rows">
+        <label>Number of Questions: </label>
         <input v-model.number="selectedNumOfQuest" type="number" placeholder="10" />
       </div>
-      <div>
-        <label for="selectDiff" style="text-align: left;">Difficulty</label>
+      <div class="rows">
+        <label for="selectDiff" style="text-align: left;">Difficulty: </label>
         <select v-model="selectedDiff" id="selectDifficulty">
           <option value>Any Difficulty</option>
           <option>Easy</option>
@@ -94,8 +95,8 @@ const onSubmit = () => {
           <option>Hard</option>
         </select>
       </div>
-      <div>
-        <label>Category</label>
+      <div class="rows">
+        <label>Category: </label>
         <select v-model="selectedCat" id="selectCat">
           <option value>Any Categories</option>
           <option
@@ -104,8 +105,8 @@ const onSubmit = () => {
           >{{ category.name }} {{ category.id }}</option>
         </select>
       </div>
-      <div>
-        <label>Type</label>
+      <div class="rows">
+        <label>Type: </label>
         <select>
           <option value>Any Type</option>
           <option>Multiple Choice</option>
@@ -118,9 +119,13 @@ const onSubmit = () => {
       <button type="submit" class="bg-yellow-500 text-white p-3 rounded">Start Trivia Game</button>
     </div>
   </form>
+  </div>
 </template>
 
 <style >
+
+
+
 select {
   margin-left: 20px;
   border-style: solid;
@@ -134,7 +139,17 @@ input {
   border-width: 1px;
 }
 
-fieldset {
+.rows{
+  padding-top: 2%;
+}
+
+.fieldsetDiv {
+  padding: 5%;
+  border-radius: 3px;
+  border-color: black;
+  border-style: solid;
+  border-width: 3px;
   text-align: left;
+  width: 500px;
 }
 </style>

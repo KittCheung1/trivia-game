@@ -10,9 +10,8 @@ import Question from "../components/Question.vue"
 
 
 <template>
-  <main class="container mx-auto px-4">
-    <h1 class="mb-3 text-2xl">Trivia Game</h1>
-    <h2>Display the questions</h2>
+  <main class="container">
+
 <Question/>
   </main>
 </template>
@@ -24,6 +23,10 @@ import Question from "../components/Question.vue"
 
 
 <style scoped>
+.container{
+  padding: 2%;
+}
+
 select {
   border-style: solid;
   border-color: black;

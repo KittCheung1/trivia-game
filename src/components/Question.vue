@@ -50,12 +50,14 @@ const createAnswerArray = (correct, incorrect) => {
 </script>
 
 <template>
+<div class="mainContainer">
+    <h1 class="mb-3 text-2xl">Trivia Game</h1>
     <div v-if="isLoaded">
         <!-- <p>{{ questionObjects[questionIndex].question }}</p>
         <p>{{ questionObjects[questionIndex].correct_answer }}</p>-->
         <div>
             <div class="questionDiv">
-                <p>{{ questionObjects[questionIndex].question }}</p>
+                <p class="questionDisplay">{{ questionObjects[questionIndex].question }}</p>
                 <div class="btnDiv">
                     <button
                         type="button"
@@ -70,21 +72,31 @@ const createAnswerArray = (correct, incorrect) => {
         </div>
     </div>
     <div v-else>LOADING</div>
+    </div>
 </template>
 
 <style scoped>
+
+.mainContainer{
+width:100%;
+display: inline-block;
+}
 .questionDiv {
+    margin-right: 50px;
+    margin-left: 50px;
     border-width: 3px;
     border-style: solid;
     border-color: black;
-    text-align: left;
+}
+
+.questionDisplay{
     padding: 2%;
+    text-align: center;
 }
 
 .btnDiv{
     text-align: center;
     margin: 2%;
-    
 }
 
 .exitBtn{

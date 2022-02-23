@@ -14,8 +14,7 @@ const handleAuthSuccess = () => {
 
 
 <template>
-  <main class="container mx-auto px-4">
-    <h1 class="mb-3 text-2xl">Login to get started</h1>
+  <main class="container">
 
     <StartForm @onAuthSuccess="handleAuthSuccess" />
  
@@ -23,4 +22,9 @@ const handleAuthSuccess = () => {
 </template>
 
 <style>
+.container{
+  display: flex;
+  justify-content: center;
+  margin:auto;
+}
 </style>
