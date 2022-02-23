@@ -10,6 +10,7 @@ export default createStore({
         url: null,
         questionObjects: reactive([]),
         index: 0,
+        answerArray: reactive([]),
 
     },
     getters: {
@@ -44,6 +45,10 @@ export default createStore({
             });
         },
         setIndex: (state)=>{state.index++},
+
+        setAnswerArray: (state, payload)=>{
+            state.answerArray = payload
+        }
     },
 
 

@@ -2,12 +2,12 @@
 import { onMounted, reactive } from "vue";
 import { computed } from "vue";
 import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
 import { ref } from "@vue/reactivity";
+import router from "../router";
 
 
 const store = useStore()
-
+let clickedAnswerArray = []
 const questionObjects = computed(() => store.state.questionObjects)
 let questionIndex = computed(() => store.getters.getNextIndex);
 let isLoaded = ref(false);
@@ -21,19 +21,22 @@ const exitGameBtn = () => {
     store.commit('setIndex', 0);
     //    store.commit('setCurrentScore', 0);
     //    store.commit('setHighScore', 0);
-    router.push('/');
+    router.push("/");
 }
 
 const createAnswerArray = (correct, incorrect) => {
     const answerArray = correct.concat(incorrect);
-    console.log(answerArray)
     return answerArray;
 }
 
-const pickedAnswers=()=>{
-    
+const pickedAnswers = (answer) => {
+
+    clickedAnswerArray.push(answer)
+    store.commit('setAnswerArray', clickedAnswerArray)
     store.commit('setIndex')
+    console.log(clickedAnswerArray)
 }
+
 
 
 </script>
@@ -50,14 +53,14 @@ const pickedAnswers=()=>{
                             type="button"
                             class="btn"
                             v-for="ans in createAnswerArray(questionObjects[questionIndex].incorrect_answers, questionObjects[questionIndex].correct_answer)"
-                            @click="pickedAnswers"
+                            @click="pickedAnswers(ans)"
                         >{{ ans }}</button>
                     </div>
                 </div>
             </div>
         </div>
         <div v-else>LOADING</div>
-                <button class="exitBtn" @click="exitGameBtn">Exit Game</button>
+        <button class="exitBtn" @click="exitGameBtn">Exit Game</button>
     </div>
 </template>
 
