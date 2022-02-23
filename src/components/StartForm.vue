@@ -55,7 +55,7 @@ const onSubmit = () => {
     difficulty: selectedDiff.value
   }
   store.commit("setUrl", settingsObj)
-
+  store.commit("setNumOfQuestion", settingsObj)
 
 }
 </script>

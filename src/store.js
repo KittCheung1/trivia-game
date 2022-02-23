@@ -11,6 +11,8 @@ export default createStore({
         questionObjects: reactive([]),
         index: 0,
         answerArray: reactive([]),
+        score: 0,
+        numberOfQuestions: 0,
 
     },
     getters: {
@@ -26,13 +28,16 @@ export default createStore({
 
         getNextIndex: state=> {
             return state.index
+        },
+        getScore: state=>{
+            return state.score
         }
+
 
     },
 
     // changing the state
     mutations: {
-        // you could destructure here too
         setUrl: (state, settings) => {
             state.url = `${settings.theUrl}amount=${settings.number}&category=${settings.categoryId}&difficulty=${settings.difficulty.toLowerCase()}`;
         },
@@ -48,6 +53,13 @@ export default createStore({
 
         setAnswerArray: (state, payload)=>{
             state.answerArray = payload
+        },
+        setScore: (state, payload)=>{
+            state.score = payload
+        },
+
+        setNumOfQuestion: (state, settings)=>{
+            state.numberOfQuestions = parseInt(settings.number)
         }
     },
 

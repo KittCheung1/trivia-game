@@ -8,6 +8,9 @@ import router from "../router";
 
 const store = useStore()
 let clickedAnswerArray = []
+let playerScore = store.state.score;
+let score = playerScore.value
+let numOfQuest = store.state.numberOfQuestions
 const questionObjects = computed(() => store.state.questionObjects)
 let questionIndex = computed(() => store.getters.getNextIndex);
 let isLoaded = ref(false);
@@ -19,7 +22,7 @@ onMounted(() => {
 const exitGameBtn = () => {
     store.commit('setUser', null);
     store.commit('setIndex', 0);
-    //    store.commit('setCurrentScore', 0);
+    store.commit('setScore', 0);
     //    store.commit('setHighScore', 0);
     router.push("/");
 }
@@ -28,16 +31,21 @@ const createAnswerArray = (correct, incorrect) => {
     const answerArray = correct.concat(incorrect);
     return answerArray;
 }
-
 const pickedAnswers = (answer) => {
 
+    // console.log(answer)
+    // console.log(questionObjects[0].incorrect_answers)
+    // if (answer === questionObjects[questionIndex].correct_answer) {
+    //     score += 10;
+    //     store.commit('setScore', score)
+    // }
     clickedAnswerArray.push(answer)
     store.commit('setAnswerArray', clickedAnswerArray)
     store.commit('setIndex')
-    console.log(clickedAnswerArray)
+    if (questionIndex.value == numOfQuest) {
+        router.push("/record")
+    }
 }
-
-
 
 </script>
 
@@ -49,7 +57,7 @@ const pickedAnswers = (answer) => {
                 <div class="questionDiv">
                     <p class="questionDisplay">{{ questionObjects[questionIndex].question }}</p>
                     <div class="btnDiv">
-                        <button
+                        <button 
                             type="button"
                             class="btn"
                             v-for="ans in createAnswerArray(questionObjects[questionIndex].incorrect_answers, questionObjects[questionIndex].correct_answer)"
