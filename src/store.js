@@ -49,7 +49,7 @@ export default createStore({
                 state.questionObjects.push(object)
             });
         },
-        setIndex: (state)=>{state.index++},
+        setIndex: (state)=>{state.index+=1},
 
         setAnswerArray: (state, payload)=>{
             state.answerArray = payload

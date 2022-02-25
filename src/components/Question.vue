@@ -8,7 +8,7 @@ import router from "../router";
 
 const store = useStore()
 let clickedAnswerArray = []
-let playerScore = store.state.score;
+let playerScore = computed(() => store.getters.getScore)
 let score = playerScore.value
 let numOfQuest = store.state.numberOfQuestions
 const questionObjects = computed(() => store.state.questionObjects)
@@ -32,8 +32,11 @@ const createAnswerArray = (correct, incorrect) => {
     return answerArray;
 }
 const pickedAnswers = (answer) => {
+    
 
-    if (answer === questionObjects[questionIndex].correct_answer) {
+
+    if (answer === questionObjects.value[questionIndex.value].correct_answer) {
+       
         score += 10;
         store.commit('setScore', score)
     }
@@ -57,7 +60,7 @@ const pickedAnswers = (answer) => {
                     <p class="questionDisplay">{{ questionObjects[questionIndex].correct_answer}}</p>
                     <p class="questionDisplay">{{ clickedAnswerArray}}</p>
                     <div class="btnDiv">
-                        <button 
+                        <button v-bind:key="ans"
                             type="button"
                             class="btn"
                             v-for="ans in createAnswerArray(questionObjects[questionIndex].incorrect_answers, questionObjects[questionIndex].correct_answer)"
