@@ -10,9 +10,11 @@ export default createStore({
         url: null,
         questionObjects: reactive([]),
         index: 0,
+        questionArray:[],
         answerArray: reactive([]),
         score: 0,
         numberOfQuestions: 0,
+        highestScore: 0,
 
     },
     getters: {
@@ -25,12 +27,14 @@ export default createStore({
         getQuestionsObjects: state => {
             return state.questionObjects
         },
-
-        getNextIndex: state=> {
+        getIndex: state=> {
             return state.index
         },
         getScore: state=>{
             return state.score
+        },
+        getHighestScore: state =>{
+            return state.highestScore
         }
 
 
@@ -49,17 +53,29 @@ export default createStore({
                 state.questionObjects.push(object)
             });
         },
-        setIndex: (state)=>{state.index+=1},
+        setIndex: (state, index)=>{state.index= index},
 
         setAnswerArray: (state, payload)=>{
             state.answerArray = payload
         },
+
+        setQuestionArray:(state, payload)=>{
+            state.questionArray.push(payload)
+        },
+
         setScore: (state, payload)=>{
             state.score = payload
         },
 
         setNumOfQuestion: (state, settings)=>{
             state.numberOfQuestions = parseInt(settings.number)
+        },
+        setHighestScore: (state, payload)=>{
+                state.highestScore = payload
+            console.log(state.highestScore)
+        },
+        setQuestionObjects:(state, payload)=>{
+            state.questionObjects = payload
         }
     },
 

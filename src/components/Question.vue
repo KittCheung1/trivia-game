@@ -12,8 +12,9 @@ let playerScore = computed(() => store.getters.getScore)
 let score = playerScore.value
 let numOfQuest = store.state.numberOfQuestions
 const questionObjects = computed(() => store.state.questionObjects)
-let questionIndex = computed(() => store.getters.getNextIndex);
+let questionIndex = computed(() => store.getters.getIndex);
 let isLoaded = ref(false);
+let highestScore = store.getters.getHighestScore;
 
 onMounted(() => {
     store.dispatch("loadQuestions").then(() => isLoaded.value = true)
@@ -23,7 +24,7 @@ const exitGameBtn = () => {
     store.commit('setUser', null);
     store.commit('setIndex', 0);
     store.commit('setScore', 0);
-    //    store.commit('setHighScore', 0);
+    store.commit('setHighestScore', 0);
     router.push("/");
 }
 
@@ -33,8 +34,6 @@ const createAnswerArray = (correct, incorrect) => {
 }
 const pickedAnswers = (answer) => {
     
-
-
     if (answer === questionObjects.value[questionIndex.value].correct_answer) {
        
         score += 10;
@@ -42,10 +41,18 @@ const pickedAnswers = (answer) => {
     }
     clickedAnswerArray.push(answer)
     store.commit('setAnswerArray', clickedAnswerArray)
-    store.commit('setIndex')
-    if (questionIndex.value == numOfQuest) {
+    store.commit('setIndex', questionIndex.value + 1);
+    if (questionIndex.value === (numOfQuest)) {
+        
+        checkScore()
         router.push("/record")
     }
+}
+
+const checkScore = () => {
+   if (score >= highestScore) {
+       store.commit('setHighestScore', score);
+   }
 }
 
 </script>
@@ -54,11 +61,9 @@ const pickedAnswers = (answer) => {
     <div class="mainContainer">
         <h1 class="mb-3 text-2xl">Trivia Game</h1>
         <div v-if="isLoaded">
-            <div>
+            <div >
                 <div class="questionDiv">
                     <p class="questionDisplay">{{ questionObjects[questionIndex].question }}</p>
-                    <p class="questionDisplay">{{ questionObjects[questionIndex].correct_answer}}</p>
-                    <p class="questionDisplay">{{ clickedAnswerArray}}</p>
                     <div class="btnDiv">
                         <button v-bind:key="ans"
                             type="button"
