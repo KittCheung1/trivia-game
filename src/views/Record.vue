@@ -45,12 +45,9 @@ const btnBack = () => {
         <div class="answerDiv">
             <div v-for="question in questionObjectArray" :key="question">
                 <div class="questionDiv">
-                    {{ question.question }}
-                    <br />
-                    Correct answer: {{ question.correct_answer }}
-                    <br />
-                    <!-- Your answer: {{ question.selectedAnswers }} <br /> -->
-                    All answers:{{ question.incorrect_answers }} {{ question.correct_answer }}"
+                    <p>{{ question.question }}</p>
+                    <p>Correct answer: {{ question.correct_answer }}</p>
+                    <p>All answers:{{ question.incorrect_answers }} {{ question.correct_answer }}"</p>
                 </div>
             </div>
         </div>
