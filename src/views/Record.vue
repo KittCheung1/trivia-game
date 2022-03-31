@@ -26,7 +26,6 @@ const btnBack = () => {
     store.commit('setNumOfQuestion', 0);
     store.commit('setQuestionObjects', []);
     store.commit('setScore', 0);
-    store.commit('setHighestScore', 0);
     store.commit('setIndex', 0);
     store.commit('setQuestionArray', []);
     store.commit('setAnswerArray', []);
@@ -43,11 +42,16 @@ const btnBack = () => {
         <h4>You scored: {{ currentScore }}</h4>
         <h4>Your highest score: {{ highestScore }}</h4>
         <div class="answerDiv">
-            <div v-for="question in questionObjectArray" :key="question">
+            <div v-for="(question, index) in questionObjectArray" :key="question">
                 <div class="questionDiv">
                     <p>{{ question.question }}</p>
                     <p>Correct answer: {{ question.correct_answer }}</p>
-                    <p>All answers:{{ question.incorrect_answers }} {{ question.correct_answer }}"</p>
+                    <br/><p> All answers:</p>
+                    <p v-for="q in question.incorrect_answers"> {{ q }}</p>
+                    <p>
+                        your answer : {{ store.getters.getAnswerArray[index]}}
+                    </p>
+             
                 </div>
             </div>
         </div>
