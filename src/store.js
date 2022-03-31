@@ -81,6 +81,9 @@ export default createStore({
         },
         setQuestionObjects:(state, payload)=>{
             state.questionObjects = payload
+        },
+        clearQuestionArray:(state, payload)=>{
+            state.questionArray = payload
         }
     },
 

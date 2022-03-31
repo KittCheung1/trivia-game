@@ -10,13 +10,14 @@ const store = useStore()
 const currentScore = computed(() => store.getters.getScore);
 const highestScore = computed(() => store.getters.getHighestScore);
 const questionObjectArray = computed(() => store.getters.getQuestionsObjects)
-let questionArray = computed(() => store.getters.getQuestionArray);
-let answerArray = computed(() => store.getters.getAnswerArray);
+
 
 const btnReplay = () => {
     store.commit('setScore', 0);
     store.commit('setIndex', 0);
+    store.commit('clearQuestionArray', []);
     store.commit('setQuestionArray', []);
+    store.commit('setQuestionObjects', []);
     store.commit('setAnswerArray', []);
     router.push('/trivia');
 };
@@ -32,26 +33,38 @@ const btnBack = () => {
     router.push('/');
 };
 
+const fixQuestions = (input) => {
+   input = input.replace(/&#039;/g, "'");
+   input = input.replace(/&quot;/g, ' " ');
+   input = input.replace(/&and;/g, ' & ');
+   input = input.replace(/&amp;/g, ' & ');
+   input = input.replace(/&shy;/g, '   ');
+   input = input.replace(/&Aring;/g, ' å ');
+   input = input.replace(/&ldquo;/g, ' " ');
+   input = input.replace(/&rdquo;/g, ' " ');
+   input = input.replace(/&hellip;/g, '. ');
+   return input;
+};
 
 </script>
 
 
 <template>
     <div class="container">
-        <h1 h1 class>Record</h1>
+        <h1 class="Record">Record</h1>
         <h4>You scored: {{ currentScore }}</h4>
         <h4>Your highest score: {{ highestScore }}</h4>
         <div class="answerDiv">
             <div v-for="(question, index) in questionObjectArray" :key="question">
                 <div class="questionDiv">
-                    <p>{{ question.question }}</p>
-                    <p>Correct answer: {{ question.correct_answer }}</p>
-                    <br/><p> All answers:</p>
-                    <p v-for="q in question.incorrect_answers"> {{ q }}</p>
-                    <p>
-                        your answer : {{ store.getters.getAnswerArray[index]}}
-                    </p>
-             
+                    <p>{{ fixQuestions(question.question )}}</p>
+                    <p class="title">Correct answer:</p>
+                    <p>{{ fixQuestions(question.correct_answer )}}</p>
+                    <p class="title">Incorrect answers:</p>
+                    <p class="wrongAnswers" v-for="q in question.incorrect_answers">{{ fixQuestions(q )}}</p>
+                    <br/>
+                    <p class="title">Your answer :</p>
+                    <p>{{ fixQuestions(store.getters.getAnswerArray[index] )}}</p>
                 </div>
             </div>
         </div>
@@ -64,6 +77,18 @@ const btnBack = () => {
 
 
 <style scoped>
+.Record {
+    font-size: 30px;
+    font-weight: bold;
+}
+.title {
+    font-weight: bold;
+    margin-top: 10px;
+}
+.wrongAnswers{
+    display: inline-flex;
+    padding-left: 15px;
+}
 .btn {
     width: 170px;
     margin: 5px;
@@ -80,6 +105,7 @@ const btnBack = () => {
 }
 
 .questionDiv {
+    background-color: rgb(90, 195, 199);
     margin-top: 10px;
     border-color: black;
     border-style: solid;
@@ -87,5 +113,6 @@ const btnBack = () => {
     width: 700px;
     display: inline-block;
     text-align: center;
+    padding: 10px;
 }
 </style>

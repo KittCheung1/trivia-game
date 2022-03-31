@@ -42,7 +42,6 @@ const onLoginClick = async () => {
   if (loginSuccess) {
     onSuccess(currentUser);
   } else { console.log("User does not exist!") }
-
 }
 
 const onSubmit = () => {
@@ -62,20 +61,20 @@ const onSubmit = () => {
 
 <template>
   <div class="mainContainer">
-    <h1 class="mb-3 text-2xl">Login to get started</h1>
+    <h1 class="title">Login to get started</h1>
     <form class="formContainer" @submit.prevent="onSubmit">
       <fieldset class="fieldsetDiv">
-        <legend>Game Settings</legend>
+        <legend class="legend">Game Settings</legend>
         <div class="rows">
-          <label for="username" aria-label="Username">Username:</label>
+          <label for="username" aria-label="Username">Username: </label>
           <input type="text" id="username" placeholder="Username" v-model="username" />
         </div>
         <div class="rows">
-          <label>Number of Questions:</label>
+          <label>Number of Questions: </label>
           <input v-model.number="selectedNumOfQuest" type="number" placeholder="10" />
         </div>
         <div class="rows">
-          <label for="selectDiff" style="text-align: left;">Difficulty:</label>
+          <label for="selectDiff" style="text-align: left;">Difficulty: </label>
           <select v-model="selectedDiff" id="selectDifficulty">
             <option value>Any Difficulty</option>
             <option>Easy</option>
@@ -84,7 +83,7 @@ const onSubmit = () => {
           </select>
         </div>
         <div class="rows">
-          <label>Category:</label>
+          <label>Category: </label>
           <select v-model="selectedCat" id="selectCat">
             <option value>Any Categories</option>
             <option
@@ -93,24 +92,20 @@ const onSubmit = () => {
             >{{ category.name }} {{ category.id }}</option>
           </select>
         </div>
-        <div class="rows">
-          <label>Type:</label>
-          <select>
-            <option value>Any Type</option>
-            <option>Multiple Choice</option>
-            <option>True / False</option>
-          </select>
-        </div>
       </fieldset>
 
       <div>
-        <button type="submit" class="bg-yellow-500 text-white p-3 rounded">Start Trivia Game</button>
+        <button type="submit" class="bg-yellow-500 text-black p-3 rounded">Start Trivia Game</button>
       </div>
     </form>
   </div>
 </template>
 
-<style >
+<style scoped>
+.title{
+  font-size: 30px;
+  font-weight: bold;
+}
 select {
   margin-left: 20px;
   border-style: solid;
@@ -123,7 +118,9 @@ input {
   border-color: black;
   border-width: 1px;
 }
-
+.legend{
+  font-size: 25px;
+}
 .rows {
   padding-top: 2%;
 }
@@ -136,5 +133,7 @@ input {
   border-width: 3px;
   text-align: left;
   width: 500px;
+  margin-bottom: 10px;
+  background-color: aquamarine;
 }
 </style>

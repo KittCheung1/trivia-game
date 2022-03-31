@@ -22,10 +22,13 @@ onMounted(() => {
 
 const exitGameBtn = () => {
     store.commit('setUser', null);
-    store.commit('setIndex', 0);
+    store.commit('setNumOfQuestion', 0);
+    store.commit('setQuestionObjects', []);
     store.commit('setScore', 0);
-    store.commit('setHighestScore', 0);
-    router.push("/");
+    store.commit('setIndex', 0);
+    store.commit('setQuestionArray', []);
+    store.commit('setAnswerArray', []);
+    router.push('/');
 }
 
 const createAnswerArray = (correct, incorrect) => {
@@ -33,9 +36,9 @@ const createAnswerArray = (correct, incorrect) => {
     return answerArray;
 }
 const pickedAnswers = (answer) => {
-    
+
     if (answer === questionObjects.value[questionIndex.value].correct_answer) {
-       
+
         score += 10;
         store.commit('setScore', score)
     }
@@ -43,44 +46,64 @@ const pickedAnswers = (answer) => {
     store.commit('setAnswerArray', clickedAnswerArray)
     store.commit('setIndex', questionIndex.value + 1);
     if (questionIndex.value === (numOfQuest)) {
-        
+
         checkScore()
         router.push("/record")
     }
 }
 
+const fixQuestions = (input) => {
+   input = input.replace(/&#039;/g, "'");
+   input = input.replace(/&quot;/g, ' " ');
+   input = input.replace(/&and;/g, ' & ');
+   input = input.replace(/&amp;/g, ' & ');
+   input = input.replace(/&shy;/g, '   ');
+   input = input.replace(/&Aring;/g, ' å ');
+   input = input.replace(/&ldquo;/g, ' " ');
+   input = input.replace(/&rdquo;/g, ' " ');
+   input = input.replace(/&hellip;/g, '. ');
+   return input;
+};
+
 const checkScore = () => {
-   if (score >= highestScore) {
-       store.commit('setHighestScore', score);
-   }
+    if (score >= highestScore) {
+        store.commit('setHighestScore', score);
+    }
 }
 
 </script>
 
 <template>
     <div class="mainContainer">
-        <h1 class="mb-3 text-2xl">Trivia Game</h1>
+        <h1 class="Trivia">Trivia Game</h1>
         <div v-if="isLoaded">
-            <div >
+            <div>
                 <div class="questionDiv">
-                    <p class="questionDisplay">{{ questionObjects[questionIndex].question }}</p>
+                    <p class="questionDisplay">{{ fixQuestions(questionObjects[questionIndex].question )}}</p>
                     <div class="btnDiv">
-                        <button v-bind:key="ans"
+                        <button
+                            v-bind:key="ans"
                             type="button"
                             class="btn"
                             v-for="ans in createAnswerArray(questionObjects[questionIndex].incorrect_answers, questionObjects[questionIndex].correct_answer)"
                             @click="pickedAnswers(ans)"
-                        >{{ ans }}</button>
+                        >{{fixQuestions(ans) }}</button>
                     </div>
                 </div>
             </div>
         </div>
         <div v-else>LOADING</div>
-        <button class="exitBtn" @click="exitGameBtn">Exit Game</button>
+        <div>
+            <button class="exitBtn" @click="exitGameBtn">Exit Game</button>
+        </div>
     </div>
 </template>
 
 <style scoped>
+.Trivia {
+    font-size: 30px;
+    font-weight: bold;
+}
 .mainContainer {
     width: 100%;
     display: inline-block;
@@ -91,6 +114,7 @@ const checkScore = () => {
     border-width: 3px;
     border-style: solid;
     border-color: black;
+    background-color: rgb(217, 177, 34);
 }
 
 .questionDisplay {
@@ -111,6 +135,7 @@ const checkScore = () => {
     border-radius: 3px;
     border-width: 2px;
     background-color: rgb(0, 199, 27);
+    margin-top: 10px;
 }
 
 .btn {
