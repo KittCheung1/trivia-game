@@ -8,7 +8,7 @@ export default createStore({
     state: {
         user: null,
         url: null,
-        questionObjects: reactive([]),
+        questionObjects: [],
         index: 0,
         questionArray:[],
         answerArray: reactive([]),
@@ -35,8 +35,13 @@ export default createStore({
         },
         getHighestScore: state =>{
             return state.highestScore
+        },
+        getQuestionArray:state =>{
+            return state.questionArray
+        },
+        getAnswerArray:state =>{
+            return state.answerArray
         }
-
 
     },
 

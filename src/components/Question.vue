@@ -7,7 +7,7 @@ import router from "../router";
 
 
 const store = useStore()
-let clickedAnswerArray = []
+const clickedAnswerArray = []
 let playerScore = computed(() => store.getters.getScore)
 let score = playerScore.value
 let numOfQuest = store.state.numberOfQuestions
