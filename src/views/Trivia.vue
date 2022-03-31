@@ -6,24 +6,22 @@ import Question from "../components/Question.vue"
 
 
 
-
-
-
 <template>
-  <main class="container mx-auto px-4">
-    <h1 class="mb-3 text-2xl">Trivia Game</h1>
-    <h2>Display the questions</h2>
-<Question/>
+  <main class="container">
+    <Question />
   </main>
 </template>
 
 
 
 
-
-
-
 <style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
 select {
   border-style: solid;
   border-color: black;

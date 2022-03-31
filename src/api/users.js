@@ -51,3 +51,24 @@ async function apiUserRegister(username) {
         return [error.message, null];
     }
 }
+
+// // PATCH SCORE--------------------------------------------------------------------------------------------------
+// export async function UpdateScore(userID, highScore) {
+//     await fetch(`${BASE_USER_URL}/${userID}`, {
+//        method: 'PATCH',
+//        headers: {
+//           'X-API-Key': apiKey,
+//           'Content-Type': 'application/json',
+//        },
+//        body: JSON.stringify({
+//           score: highScore,
+//        }),
+//     })
+//        .then((response) => {
+//           if (!response.ok) {
+//              throw new Error('Could not update high score');
+//           }
+//           return response.json();
+//        })
+//        .catch((error) => {});
+//  }
